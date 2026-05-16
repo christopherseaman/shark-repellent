@@ -1,0 +1,7 @@
+name = "shark"
+main = "worker.js"
+compatibility_date = "2026-05-15"
+
+routes = [
+  { pattern = "shark.badmath.org/*", zone_name = "badmath.org" },
+]
