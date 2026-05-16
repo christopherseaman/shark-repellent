@@ -1,0 +1,5 @@
+node_modules
+_site
+.venv
+README.md
+CLAUDE.md

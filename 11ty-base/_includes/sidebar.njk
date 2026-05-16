@@ -1,0 +1,13 @@
+<button class="nav-toggle" onclick="document.body.classList.toggle('nav-hidden')" aria-label="Toggle navigation"><span></span></button>
+<nav class="sidebar">
+  <div class="logo">{{ nav.project }}</div>
+
+  {%- for section in nav.sections %}
+  <div class="nav-section">
+    <h3>{{ section.title }}</h3>
+    {%- for item in section.items %}
+    <a class="nav-link{% if page.url == item.url %} active{% endif %}" href="{{ item.url | url }}">{{ item.label }}</a>
+    {%- endfor %}
+  </div>
+  {%- endfor %}
+</nav>
