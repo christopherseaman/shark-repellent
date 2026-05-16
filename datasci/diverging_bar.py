@@ -1,3 +1,13 @@
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#   "numpy>=1.20",
+#   "pandas>=1.3",
+#   "matplotlib>=3.4",
+# ]
+# ///
+"""Diverging bar chart for Likert/ordinal data with auto-split neutral category."""
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
