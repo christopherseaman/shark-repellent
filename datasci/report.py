@@ -2,7 +2,7 @@
 # requires-python = ">=3.11"
 # dependencies = [
 #   "pandas>=1.3",
-#   "tabulate>=0.9",
+#   "tabulate>=0.9",  # required by pandas DataFrame.to_markdown() at runtime
 # ]
 # ///
 """Markdown report section/document builders."""

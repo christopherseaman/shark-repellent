@@ -32,6 +32,7 @@ Tools (positional, zero or more):
 Flags:
   --all         Install all three tools (same as no args today)
   --no-<tool>   Exclude one tool from defaults
+                (--no-notion is shorthand for --no-notion-sync)
   --target DIR  Target directory (default: $PWD)
   --force       Overwrite existing files
   --dry-run     Print actions, don't execute
@@ -66,12 +67,16 @@ if (( ${#SELECTED[@]} == 0 )); then
 fi
 
 # Apply exclusions
+# Note: bash 3.2 (default macOS) errors on `"${EXCLUDED[@]:-}"` when the array is
+# empty under `set -u`. Guard the inner loop with an explicit length check.
 FINAL=()
 for tool in "${SELECTED[@]}"; do
   skip=0
-  for excl in "${EXCLUDED[@]:-}"; do
-    [[ "$tool" == "$excl" ]] && skip=1
-  done
+  if (( ${#EXCLUDED[@]} > 0 )); then
+    for excl in "${EXCLUDED[@]}"; do
+      [[ "$tool" == "$excl" ]] && skip=1
+    done
+  fi
   (( skip == 0 )) && FINAL+=("$tool")
 done
 
@@ -102,7 +107,7 @@ fetch_file() {
   fi
   run_cmd mkdir -p "$(dirname "$dest_path")"
   run_cmd curl -fsSL "$url" -o "$dest_path"
-  say "  fetched: $dest_path"
+  (( DRY_RUN == 0 )) && say "  fetched: $dest_path"
 }
 
 # --- per-tool installers ---
